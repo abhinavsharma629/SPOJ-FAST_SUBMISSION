@@ -27,6 +27,7 @@ headers={
 
 browser=mechanicalsoup.StatefulBrowser()
 
+#Submitting the Problem
 def submit(lang_inp,inp):
         print()
         print()
@@ -40,8 +41,8 @@ def submit(lang_inp,inp):
                     browser["file"]=open(filepath,'r').read()
                     browser["lang"] =lang_inp
                     browser.submit_selected()
-                    #print(browser.get_url())
 
+                    #Printing
                     print("SUCCESSFULLY SUBMITTED YOUR SOLUTION!!")
                     print("Please Wait for 10 seconds till SPOJ judges your solution!!")
                     time.sleep(10);
@@ -82,6 +83,7 @@ def submit(lang_inp,inp):
             submit(lang_inp,inp)
 
 
+#Language Select
 def langinp(optionsvalue,inp):
     lang_inp=input("ENTER YOUR PREFERRABLE LANGUAGE CODE:- ")
     if(lang_inp in optionsvalue):
@@ -95,6 +97,7 @@ def langinp(optionsvalue,inp):
             print()
 
 
+#Languages Available For the Particular Problem
 def language(inp):
             with requests.Session() as s:
                     probcode="https://www.spoj.com/submit/"
@@ -102,11 +105,8 @@ def language(inp):
                     r4=s.get(probcode,headers=headers)
                     soup=BeautifulSoup(r4.content,'lxml')
                     #print(soup)
-                    print()
-                    print()
-                    print("LANGUAGES AVAILABLE FOR THE PROBLEM")
-                    print()
-                    print()
+                    print("\n\n")
+                    print("LANGUAGES AVAILABLE FOR THE PROBLEM\n\n")
                     langlist=[]
                     t1=PrettyTable(['LANGUAGE','VALUE'])
                     for option in soup.find_all('option'):
@@ -119,6 +119,7 @@ def language(inp):
                     langinp(optionsvalue,inp)
 
 
+#P
 def problemcode(list1):
         with requests.Session() as s:
             k=0
@@ -185,6 +186,7 @@ def problems(url1):
                 problemcode(list1)
 
 
+#Details Of The Current Status Of Users
 def details(soup):
     url="https://www.spoj.com/status/"
     brow=browser.get(url,headers=headers)
@@ -209,6 +211,7 @@ def details(soup):
         exit()
 
 
+#HomePage
 def homepage(soup):
         a1=soup.find_all('a',href='/problems')
         a2=soup.find_all('a',href='/status')
@@ -237,6 +240,7 @@ def homepage(soup):
             exit()
 
 
+#Login
 def login():
 
     user=input("Enter Your Spoj Username:- ")
